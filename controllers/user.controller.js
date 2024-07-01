@@ -3,12 +3,12 @@ import User from "../models/user.model.js";
 export const createUser = async (req, res) => {
   try {
     await User.sync({ force: false });
-    const { name, age, position } = req.body;
-    const user = await User.create({ name, age, position });
-    res.status(201).send("created sucessully");
+    const { name,email,age, position } = req.body;
+    const user = await User.create({ name,email, age, position });
+    res.status(201).json({status:"created sucessully",user:user});
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Error inserting values");
+    console.error(error.message);
+    res.status(500).send(error.message);
   }
 };
 
