@@ -1,5 +1,7 @@
 import User from "../models/user.model.js";
 import userProfile from "../models/userProfile.model.js";
+import fs from "fs";
+
 
 export const createUserProfile = async (req, res) => {
   try {
@@ -14,10 +16,13 @@ export const createUserProfile = async (req, res) => {
     }
 
     const profilePicPath = req.file.path;
+    const fileBuffer = fs.readFileSync(profilePicPath);
+    const base64Image = fileBuffer.toString('base64');
+    fs.writeFileSync(profilePicPath,fileBuffer)
     const userProfileData = await userProfile.create({
       email,
       dob,
-      profilePicPath,
+      base64Image,
     });
     res
       .status(201)

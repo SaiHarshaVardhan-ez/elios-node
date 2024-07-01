@@ -11,8 +11,8 @@ const userProfile = sequelize.define("employeeProfiles", {
     type: DataTypes.DATE,
     allowNull: false,
   },
-  profilePicPath: {
-    type: DataTypes.STRING,
+  base64Image: {
+    type: DataTypes.STRING(400000),
     allowNull: true,
   },
 });
